@@ -1,13 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Layout from './Pages/Layout';
+import Register from "./Pages/Register";
+import Login from './Pages/Login';
+import LandingPage from './Pages/LandingPage';
+import ContactPage from './Pages/ContactPage';
+import NoPage from './Pages/NoPage'
 import './index.css';
-import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+
+export default function App(){
+  return(
+    <BrowserRouter>
+    <Routes>
+      {/* <Route path='/' element={<Layout />} /> */}
+      <Route path='register' element={<Register/>} />
+      <Route path='login' element={<Login/>} />
+      <Route path='landing-page' element={<LandingPage/>} />
+      <Route path='contact' element={<ContactPage/>} />
+      {/* <Route path='*' element={<NoPage/>} /> */}
+    </Routes>
+    </BrowserRouter>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <Layout  />
   </React.StrictMode>
 );
 
