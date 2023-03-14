@@ -15,11 +15,12 @@ export default function App(){
   return(
     <BrowserRouter>
     <Routes>
-      {/* <Route path='/' element={<Layout />} /> */}
-      <Route path='register' element={<Register/>} />
-      <Route path='login' element={<Login/>} />
-      <Route path='landing-page' element={<LandingPage/>} />
-      <Route path='contact' element={<ContactPage/>} />
+      <Route path='/layout' element={<Layout />} />
+      <Route path='/register' element={<Register/>} />
+      <Route path='/' element={<Register/>} />
+      <Route path='/login' element={<Login/>} />
+      <Route path='/landing-page' element={<LandingPage/>} />
+      <Route path='/contact' element={<ContactPage/>} />
       {/* <Route path='*' element={<NoPage/>} /> */}
     </Routes>
     </BrowserRouter>
@@ -30,7 +31,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    <Layout  />
+    {/* <Layout  /> */}
   </React.StrictMode>
 );
 
