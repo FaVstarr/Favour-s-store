@@ -5,17 +5,20 @@ const cards = [
     {
         img: <img src={process.env.PUBLIC_URL + '/alexandar-todov-vDTgx5wJwao-unsplash.jpg'} alt="" />,
         title: "White Iphone",
-        body: 'We have iPhones and Other complementary accessories'
+        body: 'We have iPhones and Other complementary accessories',
+        id: 1
     },
     {
         img: <img src={process.env.PUBLIC_URL + '/alvaro-perez-WMzSbKlf7PA-unsplash.jpg'} alt="" />,
         title: "Orange phone",
-        body: 'We have iPhones and Other complementary accessories'
+        body: 'We have iPhones and Other complementary accessories',
+        id: 2
     },
     {
         img: <img src={process.env.PUBLIC_URL + '/lars-kaizer-qDHwqQ05pVQ-unsplash.jpg'} alt="" />,
         title: "Phone cases",
-        body: 'We have Phones Cases and Other complementary accessories'
+        body: 'We have Phones Cases and Other complementary accessories',
+        id: 3
     },
 
 ]
@@ -24,10 +27,10 @@ const Layout = () => {
 
     return(
         <div>
-        <div className="navbar bg-lime-600">
+        <div className="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
   <div className="flex-1">
-    <a href="/" className="text-zinc-50 btn btn-ghost normal-case text-xl">Favour's Store</a>
-  </div>
+  <a href="/layout" className=" w-20"><img src={process.env.PUBLIC_URL + "default.png"}></img></a>
+</div>
   
   <div className="flex-none gap-2">
     <div className="form-control">
@@ -52,6 +55,7 @@ const Layout = () => {
     </div>
   </div>
 </div>
+
 
 {cards.map((cards) => (
   <div className="grid place-items-center">
@@ -106,7 +110,7 @@ const Layout = () => {
       </label> 
       <div className="relative">
         <input type="text" placeholder="username@site.com" className="input input-bordered w-full pr-16" /> 
-        <button className="bg-lime-600 btn btn-primary absolute top-0 right-0 rounded-l-none">Subscribe</button>
+        <button className="bg btn btn-primary absolute top-0 right-0 rounded-l-none">Subscribe</button>
       </div>
     </div>
   </div>

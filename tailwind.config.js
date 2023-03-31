@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    // colors: {
+    //   'purple': '#a86fc1',
+    // }
   },
   plugins: [require("daisyui")],
 }
