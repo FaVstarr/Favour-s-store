@@ -4,14 +4,14 @@ import {Outlet, Link} from "react-router-dom";
 const cards = [
     {
         img: <img src={process.env.PUBLIC_URL + '/alexandar-todov-vDTgx5wJwao-unsplash.jpg'} alt="" />,
-        title: "White Iphone",
+        title: "White phones",
         body: 'We have iPhones and Other complementary accessories',
         id: 1
     },
     {
         img: <img src={process.env.PUBLIC_URL + '/alvaro-perez-WMzSbKlf7PA-unsplash.jpg'} alt="" />,
-        title: "Orange phone",
-        body: 'We have iPhones and Other complementary accessories',
+        title: "Orange phones",
+        body: 'We have Phones and Other complementary accessories',
         id: 2
     },
     {
@@ -27,9 +27,9 @@ const Layout = () => {
 
     return(
         <div>
-        <div className="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
+        <div className="navbar bg-gradient-to-r from-purple-900 via-purple-300 to-pink-200 ...">
   <div className="flex-1">
-  <a href="/layout" className=" w-20"><img src={process.env.PUBLIC_URL + "default.png"}></img></a>
+  <a href="/layout" className="  w-40"><img src={process.env.PUBLIC_URL + "cover.png"}></img></a>
 </div>
   
   <div className="flex-none gap-2">
@@ -56,22 +56,27 @@ const Layout = () => {
   </div>
 </div>
 
+<div className="">
 
+
+ <div className="grid grid-cols-3 pt-6">
 {cards.map((cards) => (
-  <div className="grid place-items-center">
-     <div className="card w-96 bg-base-100 shadow-xl image-full pb-6 ">
+  <div className="">
+     <div className="card w-96 bg-base-100 shadow-xl max-w-xs class pb-2">
+     {/* {cards.img.map(img=> <figure style={{ backgroundImage: `url("${img})` }}></figure>)} */}
      <figure>{cards.img}</figure>
      <div className="card-body">
        <h2 className="card-title">{cards.title}</h2>
        <p>{cards.body}</p>
        <div className="card-actions justify-end">
-         <button className="btn btn-primary">Buy Now</button>
+         <button className="btn btn-primary  bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200">View more</button>
        </div>
      </div>
    </div>
    </div>
  ))}
-
+ </div>
+ </div> 
 <div className="">
 
 
@@ -110,7 +115,7 @@ const Layout = () => {
       </label> 
       <div className="relative">
         <input type="text" placeholder="username@site.com" className="input input-bordered w-full pr-16" /> 
-        <button className="bg btn btn-primary absolute top-0 right-0 rounded-l-none">Subscribe</button>
+        <button className="bg btn btn-primary absolute top-0 right-0 rounded-l-none bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Subscribe</button>
       </div>
     </div>
   </div>
