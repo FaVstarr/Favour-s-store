@@ -1,4 +1,5 @@
-import {Outlet, Link} from 'react-router-dom'
+import {Outlet, Link, useNavigate} from 'react-router-dom'
+
 import { useForm  } from "react-hook-form"
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +27,7 @@ const config = {
 
 const Register = () => {
 
-
+	const navigate = useNavigate();
 	
     
     //
@@ -36,14 +37,18 @@ const Register = () => {
 
     const onSubmit = (data) => {
 
+		
+
 		const { fname, username, email, password } = data;
-    const udata = { fname, username, email, password };
-    axios.post(API_URL, udata, config)
+    	const udata = { fname, username, email, password };
+
+
+    	axios.post(API_URL, udata, config)
          .then(response => console.log(response))
          .catch(error => console.error(error));
-		<Link to="/login" />
-		alert("Registration Successful, Login to continue")
-		reset();
+			navigate("/login")
+			alert("Registration Successful, Login to continue")
+			reset();
     }
     
    
@@ -111,7 +116,7 @@ const Register = () => {
 		<p>{ errors.password?.message }</p>
         
 
-					<button type="submit" class="block w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</button>
+				<button type="submit" class="block w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</button>
 							<p className='text-sm ml-2'>Have an account?<span class="text-sm ml-2 hover:text-blue-500 cursor-pointer"><span><Link to="/login">Login</Link></span></span></p>
 		</form>
 	</div>
