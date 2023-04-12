@@ -1,8 +1,11 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { useForm  } from "react-hook-form"
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { useForm  } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from 'axios';
+
+// import { useState } from 'react';
 
 
 const schema = yup.object().shape({
@@ -12,26 +15,46 @@ const schema = yup.object().shape({
     
 });
 
+const API_URL = "http://localhost/PHP_API/login.php"
 
+const config = {
+	header: {
+		Authorization: `Bearer ${jwt}`,
+		"Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  Accept: "application/json"
+	}
+}
 
 
 
 const Login = () => {
 
 	
-	
-		
-	
+	const navigate = useNavigate();	
+	// const [errorMessage, setErrorMessage] = useState('')
 
 	const { register, handleSubmit, formState: {errors}, reset } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(schema)
     });
-    const onSubmit = (userdata) => {
+    const onSubmit = (data) => {
 	
-		
-
-			console.log(userdata);
-			reset();
+		const {username, password} = data
+		const udata = {username , password}
+		axios.post(API_URL,udata,config)
+		.then(response => console.log(response))
+		.then(data => {
+            if (data.message === 'Login successful') {
+                // redirect to landing page
+				alert("Login Successful")
+                navigate('/layout');
+            } else {
+                alert(data.message);
+            }
+        });
+			
+			// console.log();
+			// reset();
 		
 
        
