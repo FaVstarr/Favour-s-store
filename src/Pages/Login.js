@@ -19,7 +19,7 @@ const API_URL = "http://localhost/PHP_API/login.php"
 
 const config = {
 	header: {
-		Authorization: `Bearer ${jwt}`,
+		//Authorization: `Bearer ${jwt}`,
 		"Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
   Accept: "application/json"
@@ -42,16 +42,17 @@ const Login = () => {
 		const {username, password} = data
 		const udata = {username , password}
 		axios.post(API_URL,udata,config)
-		.then(response => console.log(response))
-		.then(data => {
-            if (data.message === 'Login successful') {
-                // redirect to landing page
-				alert("Login Successful")
-                navigate('/layout');
-            } else {
-                alert(data.message);
-            }
-        });
+		.then(response => {if (response && response.data.message === 'Login successful') {
+			// redirect to landing page
+			alert("Login Successful")
+			navigate('/layout');
+		} else {
+			alert(response.data.message || 'An error occurred');
+		}})   
+		// .then(response => {
+            
+		// 	console.log(response);
+        // });
 			
 			// console.log();
 			// reset();

@@ -24,13 +24,15 @@ $result = $stmt->get_result();
 if ($result->num_rows === 1) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['password'])) {
-        echo json_encode(array("message" => "Login successful"));
+        $response = array("message" => "Login successful");
     } else {
-        echo json_encode(array("message" => "Incorrect password"));
+        $response = array("message" => "Incorrect Message");
     }
 } else {
-    echo json_encode(array("message" => "User not found"));
+    $response = array("message" => "User not found");
 }
+
+echo json_encode($response);
 
 // close the statement and database connection
 $stmt->close();
