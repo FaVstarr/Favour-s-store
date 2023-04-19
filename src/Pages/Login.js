@@ -17,14 +17,7 @@ const schema = yup.object().shape({
 
 const API_URL = "http://localhost/PHP_API/login.php"
 
-const config = {
-	header: {
-		//Authorization: `Bearer ${jwt}`,
-		"Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
-  Accept: "application/json"
-	}
-}
+
 
 
 
@@ -38,17 +31,34 @@ const Login = () => {
         resolver: yupResolver(schema)
     });
     const onSubmit = (data) => {
+
+
+		let jwt = localStorage.getItem('jwt')
+
+const config = {
+	header: {
+		Authorization: `Bearer ${jwt}`,
+		"Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  Accept: "application/json"
+	}
+}
 	
 		const {username, password} = data
 		const udata = {username , password}
 		axios.post(API_URL,udata,config)
-		.then(response => {if (response && response.data.message === 'Login successful') {
+		.then(response => {
+			console.log("response", response);
+			if (response && response.data.message === 'Login successful') {
 			// redirect to landing page
 			alert("Login Successful")
 			navigate('/layout');
 		} else {
-			alert(response.data.message || 'An error occurred');
-		}})   
+			console.log(response.data.message );
+		}})
+		.catch(error=> {
+			console.log('error:', error);
+		})   
 		// .then(response => {
             
 		// 	console.log(response);

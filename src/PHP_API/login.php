@@ -2,6 +2,9 @@
 // include database connection
 include_once 'dbconfig.php';
 
+//initializing response variable
+$response = array();
+
 
 
 // get user data from the request body
@@ -10,7 +13,10 @@ $data = json_decode(file_get_contents("php://input"));
 $username = $data->username;
 $password = $data->password;
 
-// prepare and bind the query
+if(!$conn){
+    $response = array("message" => "Error connecting to database");
+}else{
+    // prepare and bind the query
 $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 
@@ -31,10 +37,14 @@ if ($result->num_rows === 1) {
 } else {
     $response = array("message" => "User not found");
 }
+$stmt->close();
+}
 
+
+$conn->close();
 echo json_encode($response);
 
 // close the statement and database connection
-$stmt->close();
-$conn->close();
+
+
 ?>
