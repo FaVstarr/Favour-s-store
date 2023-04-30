@@ -44,11 +44,11 @@ const Register = () => {
 
 
     	axios.post(API_URL, udata, config)
-         .then(response => console.log(response))
+         .then(response => {console.log(response.data); localStorage.setItem("user_token", JSON.stringify(response.data.token) )})
          .catch(error => console.error(error));
-			navigate("/login")
+			// navigate("/login")
 			alert("Registration Successful, Login to continue")
-			reset();
+			// reset();
     }
     
    
@@ -125,3 +125,4 @@ const Register = () => {
 }
 
 export default Register
+

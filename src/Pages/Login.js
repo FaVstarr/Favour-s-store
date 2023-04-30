@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 
 const API_URL = "http://localhost/PHP_API/login.php"
 
+let jwt = localStorage.getItem('jwt') || '';
 
 
 
@@ -33,11 +34,13 @@ const Login = () => {
     const onSubmit = (data) => {
 
 
-		let jwt = localStorage.getItem('jwt')
+		
+		
 
 const config = {
-	header: {
-		Authorization: `Bearer ${jwt}`,
+	headers: {
+		
+		Authorization: jwt ? `Bearer ${jwt}` : '',
 		"Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
   Accept: "application/json"
@@ -48,13 +51,16 @@ const config = {
 		const udata = {username , password}
 		axios.post(API_URL,udata,config)
 		.then(response => {
+			const token = response.data.token
 			console.log("response", response);
-			if (response && response.data.message === 'Login successful') {
+			if (response && token === 'Login successful') {
+			localStorage.setItem('token', token)
 			// redirect to landing page
 			alert("Login Successful")
 			navigate('/layout');
 		} else {
-			console.log(response.data.message );
+			console.log(response.data)
+			// alert("Invalid Credentials");
 		}})
 		.catch(error=> {
 			console.log('error:', error);
@@ -129,3 +135,5 @@ const config = {
 }
 
 export default Login;
+
+
