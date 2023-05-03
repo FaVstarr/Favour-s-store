@@ -60,7 +60,7 @@ const config = {
 			navigate('/layout');
 		} else {
 			console.log(response.data)
-			// alert("Invalid Credentials");
+			alert("Invalid Credentials");
 		}})
 		.catch(error=> {
 			console.log('error:', error);
