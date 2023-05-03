@@ -31,8 +31,13 @@ const Login = () => {
 	const { register, handleSubmit, formState: {errors}, reset } = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = (data) => {
-
+    
+	
+	
+	
+	
+	const onSubmit = (data) => {
+		console.log(data)
 
 		
 		
@@ -50,11 +55,15 @@ const config = {
 		const {username, password} = data
 		const udata = {username , password}
 		axios.post(API_URL,udata,config)
+
+
+
 		.then(response => {
 			const token = response.data.token
 			console.log("response", response);
-			if (response && token === 'Login successful') {
-			localStorage.setItem('token', token)
+			if ( token ) {
+			
+			localStorage.setItem("token", JSON.stringify(response.data.token) )
 			// redirect to landing page
 			alert("Login Successful")
 			navigate('/layout');
