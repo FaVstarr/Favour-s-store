@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import ProtectedRoute from './Pages/ProtectedRoute';
 import Layout from './Pages/Layout';
 import Register from "./Pages/Register";
 import Login from './Pages/Login';
@@ -15,11 +16,11 @@ export default function App(){
   return(
     <BrowserRouter>
     <Routes>
-      <Route path='/layout' element={<Layout />} />
+      <Route path='/layout' element={<ProtectedRoute component={Layout}/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/landing-page' element={<LandingPage/>} />
+      <Route path='/landing-page' element={<LandingPage/>}/>
       <Route path='/contact' element={<ContactPage/>} />
       {/* <Route path='*' element={<NoPage/>} /> */}
     </Routes>
