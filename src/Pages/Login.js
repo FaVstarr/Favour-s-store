@@ -4,6 +4,8 @@ import { useForm  } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import { useState } from 'react';
 
@@ -65,11 +67,20 @@ const config = {
 			
 			localStorage.setItem("token", JSON.stringify(response.data.token) )
 			// redirect to landing page
-			alert("Login Successful")
-			navigate('/layout');
+			toast.success('Login Successful !', {
+				position: toast.POSITION.TOP_RIGHT,
+				autoClose: 10000 // 3 seconds
+				
+			});
+			setTimeout(()=> {
+				navigate('/layout');
+			},3000)
 		} else {
 			console.log(response.data)
-			alert("Invalid Credentials");
+			toast.error('Invaid Username or Password !', {
+				position: toast.POSITION.TOP_RIGHT,
+				autoClose: 3000 // 3 seconds
+			});
 		}})
 		.catch(error=> {
 			console.log('error:', error);
@@ -90,8 +101,8 @@ const config = {
 
     return(
 
-		
-       
+		<div>
+       <ToastContainer />
 <div class="h-screen md:flex">
 	<div
 		class="relative overflow-hidden md:flex w-1/2  bg-gradient-to-r from-purple-900 via-purple-500 to-pink-250 i justify-around items-center hidden">
@@ -139,6 +150,7 @@ const config = {
                             <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer"><span><Link to="/Register">Register</Link></span></span>
 		</form>
 	</div>
+</div>
 </div>
     )
 }

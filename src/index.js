@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import ProtectedRoute from './Pages/ProtectedRoute';
 import Layout from './Pages/Layout';
 import Register from "./Pages/Register";
 import Login from './Pages/Login';
-import LandingPage from './Pages/LandingPage';
+import { AuthProvider } from './Pages/auth';
+
 import ContactPage from './Pages/ContactPage';
 import NoPage from './Pages/NoPage'
 import './index.css';
@@ -15,15 +16,17 @@ import reportWebVitals from './reportWebVitals';
 export default function App(){
   return(
     <BrowserRouter>
+    <AuthProvider>
     <Routes>
-      <Route path='/layout' element={<ProtectedRoute component={Layout}/>} />
+      <ProtectedRoute path='/layout' element={<Layout/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/landing-page' element={<LandingPage/>}/>
+      
       <Route path='/contact' element={<ContactPage/>} />
       {/* <Route path='*' element={<NoPage/>} /> */}
     </Routes>
+    </AuthProvider>
     </BrowserRouter>
   )
 }
@@ -32,7 +35,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    {/* <Layout  /> */}
+    
   </React.StrictMode>
 );
 

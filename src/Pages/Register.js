@@ -1,9 +1,12 @@
 import {Outlet, Link, useNavigate} from 'react-router-dom'
 
+
 import { useForm  } from "react-hook-form"
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = yup.object().shape({
     fname: yup.string().matches(/\w+\s\w+/, "Please enter exactly first name and last name").required(),
@@ -29,7 +32,7 @@ const Register = () => {
 
 	const navigate = useNavigate();
 	
-    
+   
     //
     const { register, handleSubmit, formState: {errors}, reset } = useForm({
         resolver: yupResolver(schema),
@@ -44,11 +47,17 @@ const Register = () => {
 
 
     	axios.post(API_URL, udata, config)
-         .then(response => {console.log(response.data)})
-         .catch(error => console.error(error));
-			navigate("/login")
-			alert("Registration Successful, Login to continue")
-			// reset();
+         .then(response => {
+			console.log(response.data)
+			toast.success('Success Notification !', {
+				position: toast.POSITION.TOP_RIGHT
+			});
+			// navigate("/login")
+		})
+		
+		.catch(error => console.error(error));
+			
+			 reset();
     }
     
    
@@ -56,8 +65,10 @@ const Register = () => {
 
 
     return(
-        
+        <div>
+			<ToastContainer/>
 <div class="h-screen md:flex">
+
 	<div
 		className="relative overflow-hidden md:flex w-1/2  bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200 i justify-around items-center hidden">
 		 
@@ -68,6 +79,7 @@ const Register = () => {
 		<div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div> */}
 	</div>
 	<div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
+	
 		<form className="bg-white" onSubmit={handleSubmit(onSubmit)}>
 			<h1 class="text-center text-gray-800 font-bold text-2xl mb-1">Register</h1>
 			<p class="text-center text-sm font-normal text-gray-600 mb-7">Input your details</p>
@@ -120,6 +132,8 @@ const Register = () => {
 							<p className='text-sm ml-2'>Have an account?<span class="text-sm ml-2 hover:text-blue-500 cursor-pointer"><span><Link to="/login">Login</Link></span></span></p>
 		</form>
 	</div>
+	
+</div>
 </div>
     )
 }
