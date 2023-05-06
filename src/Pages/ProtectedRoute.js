@@ -29,8 +29,9 @@ const ProtectedRoute = ({children}) =>{
             console.log(response)
             localStorage.getItem("token", JSON.stringify(response.data.token))
             if(response.status === 200){
-                setIsLoggedIn(true)
-                return children
+                    setIsLoggedIn(true)
+                       return children
+                
             }else{
                 setIsLoggedIn(false)
                 

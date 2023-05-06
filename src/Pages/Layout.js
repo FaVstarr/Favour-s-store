@@ -71,7 +71,7 @@ const Layout = () => {
        <h2 className="card-title">{cards.title}</h2>
        <p>{cards.body}</p>
        <div className="card-actions justify-end">
-         <button className="btn   bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200">View more</button>
+         <button className="btn   bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200"><Link to={'/products'}>View more</Link></button>
        </div>
      </div>
    </div>
