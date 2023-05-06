@@ -1,4 +1,4 @@
-import {Outlet, Link} from "react-router-dom";
+import {Outlet, Link, Navigate} from "react-router-dom";
 
 
 const cards = [
@@ -25,6 +25,8 @@ const cards = [
 
 const Layout = () => {
 
+  
+
     return(
         <div>
         <div className="navbar bg-gradient-to-r from-purple-900 via-purple-300 to-pink-200 ...">
@@ -50,7 +52,7 @@ const Layout = () => {
           </a>
         </li>
         <li><a href="/">Settings</a></li>
-        <li><a href='/'>Logout</a></li>
+        <li><a href='/login'>Logout</a></li>
       </ul>
     </div>
   </div>
@@ -69,7 +71,7 @@ const Layout = () => {
        <h2 className="card-title">{cards.title}</h2>
        <p>{cards.body}</p>
        <div className="card-actions justify-end">
-         <button className="btn btn-primary  bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200">View more</button>
+         <button className="btn   bg-gradient-to-r from-purple-500 via-purple-500 to-pink-200">View more</button>
        </div>
      </div>
    </div>

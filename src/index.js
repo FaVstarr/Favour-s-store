@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import ProtectedRoute from './Pages/ProtectedRoute';
+import Products from './Pages/Products';
 import Layout from './Pages/Layout';
 import Register from "./Pages/Register";
 import Login from './Pages/Login';
-import { AuthProvider } from './Pages/auth';
+
 
 import ContactPage from './Pages/ContactPage';
 import NoPage from './Pages/NoPage'
@@ -16,17 +17,26 @@ import reportWebVitals from './reportWebVitals';
 export default function App(){
   return(
     <BrowserRouter>
-    <AuthProvider>
+    
     <Routes>
-      <ProtectedRoute path='/layout' element={<Layout/>} />
+      
+      <Route path='/layout' element={
+        <ProtectedRoute>
+      <Layout/>
+      </ProtectedRoute>
+      } />
+      <Route path='/products' element={
+        
+      <Products/>
+      }/>
       <Route path='/register' element={<Register/>} />
       <Route path='/' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
       
       <Route path='/contact' element={<ContactPage/>} />
-      {/* <Route path='*' element={<NoPage/>} /> */}
+      <Route path='*' element={<NoPage/>} />
     </Routes>
-    </AuthProvider>
+    
     </BrowserRouter>
   )
 }

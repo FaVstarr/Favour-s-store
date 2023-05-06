@@ -69,7 +69,7 @@ const config = {
 			// redirect to landing page
 			toast.success('Login Successful !', {
 				position: toast.POSITION.TOP_RIGHT,
-				autoClose: 10000 // 3 seconds
+				autoClose: 5000 // 3 seconds
 				
 			});
 			setTimeout(()=> {
