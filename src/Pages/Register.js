@@ -52,7 +52,11 @@ const Register = () => {
 			toast.success('Success Notification !', {
 				position: toast.POSITION.TOP_RIGHT
 			});
-			// navigate("/login")
+
+			setTimeout(()=>{
+				navigate("/login")
+			},3000)
+			
 		})
 		
 		.catch(error => console.error(error));
