@@ -15,7 +15,7 @@ const cards = [
         id: 2
     },
     {
-        img: <img src={process.env.PUBLIC_URL + '/lars-kaizer-qDHwqQ05pVQ-unsplash.jpg'} alt="" />,
+        img: <img className="object-scale-down w-100 h-60" src={process.env.PUBLIC_URL + '/lars-kaizer-qDHwqQ05pVQ-unsplash.jpg'} alt="" />,
         title: "Phone cases",
         body: 'We have Phones Cases and Other complementary accessories',
         id: 3
