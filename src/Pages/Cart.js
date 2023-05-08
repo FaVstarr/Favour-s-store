@@ -1,5 +1,5 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import React, { useState } from 'react';
+import React from 'react';
 import '../App.css'
 import { useNavigate } from "react-router-dom";
 
