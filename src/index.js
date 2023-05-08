@@ -7,7 +7,7 @@ import Layout from './Pages/Layout';
 import Register from "./Pages/Register";
 import Login from './Pages/Login';
 import CartPage from './Pages/CartPage';
-
+import CheckoutPage from './Pages/CheckoutPage';
 import ContactPage from './Pages/ContactPage';
 import NoPage from './Pages/NoPage'
 import './index.css';
@@ -30,6 +30,7 @@ export default function App(){
       <Products/>
       }/>
       <Route path='/cart' element={<CartPage/>} />
+      <Route  path='/checkout' element={<CheckoutPage/>}/>
       <Route path='/register' element={<Register/>} />
       <Route path='/' element={<Register/>} />
       <Route path='/login' element={<Login/>} />

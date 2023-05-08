@@ -1,57 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import CartIcon from "./Cart";
-
+import { toast, ToastContainer } from "react-toastify"
 
 const productCards = [
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt="iPhone 14" />,
         title: "Iphone 14 pro max",
-        price: "1,280,000",
+        price: 461000,
         id: 1,
         tags: "iphone",
         category: "phones"
 
     },
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt="iPhone 14" />,
         title: "Iphone 13 pro max",
-        price: "1,280,000",
+        price: 3200000,
         id: 2,
         tags: "iphone",
         category: "phones"
 
     },
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'Samsung s22 ultra.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'Samsung s22 ultra.jpg'} alt="iPhone 14" />,
         title: "Samsung S22 Ultra",
-        price: "1,280,000",
+        price: 400000,
         id: 3,
         tags: "samsung",
         category: "phones"
 
     },
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'Tecno camon 20.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'Tecno camon 20.jpg'} alt=" iPhone 14" />,
         title: "Tecno Camon 20",
-        price: "1,280,000",
+        price: 128000,
         id: 4,
         tags: "tecno",
         category: "phones"
 
     },
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'tecno spark 10c.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'tecno spark 10c.jpg'} alt=" iPhone 14" />,
         title: "Tecno Spark 10C",
-        price: "1,280,000",
+        price: 104500,
         id: 5,
         tags: "tecno",
         category: "phones"
 
     },
     {
-        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt="picture of iPhone 14" />,
+        img: <img className="object-scale-down w-60 h-60" src={process.env.PUBLIC_URL + 'iPhone14 pro max.jpg'} alt=" iPhone 14" />,
         title: "Iphone 14 pro max",
-        price: "1,280,000",
+        price: 1280000,
         id: 6,
         tags: "iphone",
         category: "phones"
@@ -60,29 +60,50 @@ const productCards = [
 
 ]
 
-const handleClick = (item) => {
-    
 
+const AddToCart = (item, setCartCount) => {
+   
+    
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         const itemsInCart = cartItems.find(cartItem => cartItem.id === item.id);
-
+        
         if(itemsInCart){
+            
             itemsInCart.quantity += 1;
         }else {
             cartItems.push({...item,quantity:1});
         }
         localStorage.setItem('cartItems',JSON.stringify(cartItems));
-
+        setCartCount((prevCount)=> prevCount + 1);
     
 }
 
+
+
+
 const Products = () => {
+
+  const [cartCount, setCartCount] = useState(()=>{
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    return cartItems.reduce((count, item)=> count + item.quantity, 0)
+  })
+
+  const handleClick = (item) => {
+    AddToCart(item,setCartCount)
+    toast.success('Successfully added to cart !', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 5000 // 3 seconds
+      
+    });
+    
+  }
+
     return(
         <div className="bg-white-200">
-
+          <ToastContainer/>
 <div className="navbar bg-gradient-to-r from-purple-900 via-purple-300 to-pink-200 ...">
   <div className="flex-1">
-  <a href="/layout" className="  w-40"><img src={process.env.PUBLIC_URL + "cover.png"}></img></a>
+  <a href="/layout" className="  w-40"><img src={process.env.PUBLIC_URL + "cover.png"} alt="cover"></img></a>
 </div>
   
   <div className="flex-none gap-2">
@@ -110,7 +131,7 @@ const Products = () => {
   </div>
 </div>
 
-<CartIcon />
+<CartIcon cartCount={cartCount} />
 <div className="grid grid-cols-3">
 
     {productCards.map((productCard)=>(
@@ -131,7 +152,14 @@ const Products = () => {
     ))}
 
 </div>
-
+<div className="content-center">
+<div className="btn-group">
+  <button className="btn">1</button>
+  <button className="btn btn-active">2</button>
+  <button className="btn">3</button>
+  <button className="btn">4</button>
+</div>
+</div>
         </div>
     )
 }
