@@ -11,6 +11,30 @@ const CartPage = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
+  const reduceQuantity = (id) => {
+    const updatedCartItems = cartItems.map((item,cartItem)=>{
+      
+      if(item.id === id){
+        return{...item, quantity: item.quantity - 1};
+        
+      }
+    
+      return item;
+    });
+   
+    setCartItems(updatedCartItems);
+  }
+
+  const increaseQuantity = (id) => {
+    const updatedCartItems = cartItems.map((item)=>{
+      if(item.id === id){
+        return{...item, quantity: item.quantity + 1};
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+  }
+
   return (
     <div className="bg-white-200">
 
@@ -60,7 +84,13 @@ const CartPage = () => {
             <tr key={cartItem.id} className="border-b">
               <td className="py-5">{cartItem.title}</td>
               <td className="py-5">{cartItem.price}</td>
+              <td>
+                <button onClick={()=> reduceQuantity(cartItem.id) }>-</button>
+              </td>
               <td className="py-5">{cartItem.quantity}</td>
+              <td>
+              <button onClick={()=> increaseQuantity(cartItem.id) }>+</button>
+              </td>
               <td className="py-5">{isNaN(cartItem.price) || isNaN(cartItem.quantity) ? '': cartItem.price * cartItem.quantity }</td>
               <td>
                 <button
