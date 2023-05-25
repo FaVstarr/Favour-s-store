@@ -1,0 +1,5 @@
+<?php
+
+$secretkey = "Favstar";
+
+?>

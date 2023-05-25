@@ -1,50 +1,84 @@
 <?php
+
+require_once 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+
+
+function generateToken($user){
+    $payload = array(
+        "iss"=> "http://localhost/PHP_API/dbconfig.php",
+        "aud"=> "http://localhost:3000/",
+        "iat"=> time(),
+        "exp"=> time() + 3600, //Token expires in 1hr
+        "sub"=> $user['id'],
+        "email"=> $user["email"],
+        "username"=>$user["username"]
+
+    );
+    
+    $jwt = JWT::encode($payload,"favstar", 'HS256');
+    return $jwt;
+    
+}
+
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Content-Type, Authorization, Access-Control-Allow-Origin');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Content-Type: application/json');
+
 // include database connection
-include_once 'dbconfig.php';
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'favour-s store';
 
-//initializing response variable
-$response = array();
+$mysqli = new mysqli($host, $user, $password, $database);
+
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
 
 
 
-// get user data from the request body
-$data = json_decode(file_get_contents("php://input"));
 
-$username = $data->username;
-$password = $data->password;
 
-if(!$conn){
-    $response = array("message" => "Error connecting to database");
-}else{
-    // prepare and bind the query
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->bind_param("s", $username);
 
-// execute the query
-$stmt->execute();
-
-// get the result
-$result = $stmt->get_result();
-
-// check if user exists and password is correct
-if ($result->num_rows === 1) {
-    $row = $result->fetch_assoc();
-    if (password_verify($password, $row['password'])) {
-        $response = array("message" => "Login successful");
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    $username = $data['username'];
+    $password = $data['password'];
+    // var_dump($username, $password);
+    
+    $stmt = $mysqli->prepare("SELECT * FROM users WHERE username=? AND password=?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        $jwt = generateToken($user);
+        
+        $message = array(
+            "message" => "Login successful",
+            "token" => $jwt
+        );
+        
+        echo json_encode($message);
     } else {
-        $response = array("message" => "Incorrect Message");
+        $message = array(
+            "message" => "Invalid username or password"
+        );
+        
+        echo json_encode($message);
     }
-} else {
-    $response = array("message" => "User not found");
-}
-$stmt->close();
 }
 
-
-$conn->close();
-echo json_encode($response);
-
-// close the statement and database connection
+  
 
 
 ?>
+
+
